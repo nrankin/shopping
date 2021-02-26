@@ -22,5 +22,24 @@ module ReadyTech
     def price
       BigDecimal(row[:price])
     end
+
+    def product_type
+      'book' if book?
+      'food' if food?
+      'medical' if medical?
+      'general'
+    end
+
+    def book?
+      /book/.match?(product)
+    end
+
+    def food?
+      /(chocolate)/.match?(product)
+    end
+
+    def medical?
+      /pills/.match?(product)
+    end
   end
 end
