@@ -5,7 +5,7 @@ require 'bigdecimal'
 module ReadyTech
   # An item represents one product, with it's quantity and price
   class Item
-    attr_accessor :row
+    attr_accessor :row, :tax
 
     def initialize(row)
       @row = row
@@ -21,6 +21,10 @@ module ReadyTech
 
     def price
       BigDecimal(row[:price])
+    end
+
+    def tax
+      @tax
     end
 
     def product_type
