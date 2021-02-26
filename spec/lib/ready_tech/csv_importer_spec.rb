@@ -7,8 +7,11 @@ RSpec.describe ReadyTech::CsvImporter do
     expect { described_class.import('data/input1.csv') }.not_to raise_error
   end
 
-  it 'imports correct number of items' do
-    items = described_class.import('data/input1.csv')
-    expect(items.count).to eq(3)
+  describe 'imported items' do
+    let(:items) { described_class.import('data/input1.csv') }
+
+    it 'imports correct number of items' do
+      expect(items.count).to eq(3)
+    end
   end
 end
