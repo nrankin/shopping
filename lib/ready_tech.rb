@@ -4,7 +4,6 @@ module ReadyTech
   # Processes baskets: imports from csv, calculates tax, and prints reciepts
   class ReadyTech
     def self.process_baskets
-
       Dir.glob(files_to_import).each do |file_path|
         # import one basket
         items = CsvImporter.import(file_path)
@@ -14,8 +13,7 @@ module ReadyTech
           item.tax = calc.taxes
         end
         # print reciepts
-      end     
-
+      end
 
       'success'
     end

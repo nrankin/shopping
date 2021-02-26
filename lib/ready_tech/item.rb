@@ -23,9 +23,7 @@ module ReadyTech
       BigDecimal(row[:price])
     end
 
-    def tax
-      @tax
-    end
+    attr_reader :tax
 
     def product_type
       return 'book' if book?
