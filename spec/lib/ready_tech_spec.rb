@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'ready_tech/ready_tech'
+require 'ready_tech'
 
 RSpec.describe ReadyTech::ReadyTech do
   it 'doesnt raise an error' do
