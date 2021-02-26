@@ -29,11 +29,15 @@ module ReadyTech
     end
 
     def imported_tax_rate
-      ADDITIONAL_IMPORT_TAX
+      imported? ? ADDITIONAL_IMPORT_TAX : ZERO_TAX
     end
 
     def exempt?
       /(book|food)/.match?(product_type)
+    end
+
+    def imported?
+      /imported/.match?(product_type)
     end
   end
 end

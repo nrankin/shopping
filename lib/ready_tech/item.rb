@@ -24,9 +24,10 @@ module ReadyTech
     end
 
     def product_type
-      'book' if book?
-      'food' if food?
-      'medical' if medical?
+      return 'book' if book?
+      return 'food' if food?
+      return 'medical' if medical?
+
       'general'
     end
 
@@ -35,7 +36,7 @@ module ReadyTech
     end
 
     def food?
-      /(chocolate)/.match?(product)
+      /(chocolate|apple)/.match?(product)
     end
 
     def medical?

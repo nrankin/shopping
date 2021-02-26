@@ -7,11 +7,34 @@ RSpec.describe ReadyTech::CalculateTax do
   it 'calculates tax correctly for regular items' do
     calc = described_class.new(BigDecimal('10'), 'general')
 
-    expect(calc.taxes).to eq(BigDecimal('1.5'))
+    expected_tax = BigDecimal('10') * BigDecimal('.1')
+
+    expect(calc.taxes).to eq(expected_tax)
   end
 
   it 'calculates tax correctly for exempt items' do
-    calc = described_class.new(BigDecimal('10'), 'book')
-    expect(calc.taxes).to eq(BigDecimal('0.5'))
+    calc = described_class.new(BigDecimal('10'), 'food')
+
+    expected_tax = BigDecimal('0')
+
+    expect(calc.taxes).to eq(expected_tax)
+  end
+
+  describe 'impoted items' do
+    it 'applies import and base tax rate to non-exempt items' do
+      calc = described_class.new(BigDecimal('10'), 'imported general')
+
+      expected_tax = BigDecimal('10') * BigDecimal('.15')
+
+      expect(calc.taxes).to eq(expected_tax)
+    end
+
+    it 'applies only imported tax rate to exempt items' do
+      calc = described_class.new(BigDecimal('10'), 'imported book')
+
+      expected_tax = BigDecimal('10') * BigDecimal('.05')
+
+      expect(calc.taxes).to eq(expected_tax)
+    end
   end
 end

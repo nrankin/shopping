@@ -16,4 +16,24 @@ RSpec.describe ReadyTech::Item do
   it 'has access to price' do
     expect(item.price).to eq(BigDecimal('22.34'))
   end
+
+  describe '#product_type' do
+    it 'returns food for apples' do
+      item = described_class.new({ quantity: 1, product: 'apples', price: '22.34' })
+
+      expect(item.product_type).to eq('food')
+    end
+
+    it 'returns book for books' do
+      item = described_class.new({ quantity: 1, product: 'book', price: '22.34' })
+
+      expect(item.product_type).to eq('book')
+    end
+
+    it 'returns medical for headache pills' do
+      item = described_class.new({ quantity: 1, product: 'headache pills', price: '22.34' })
+
+      expect(item.product_type).to eq('medical')
+    end
+  end
 end
