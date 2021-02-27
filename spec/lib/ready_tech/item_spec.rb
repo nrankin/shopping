@@ -14,7 +14,7 @@ RSpec.describe ReadyTech::Item do
   end
 
   it 'has access to price' do
-    expect(item.price).to eq(BigDecimal('22.34'))
+    expect(item.price).to eq(Money.new('2234'))
   end
 
   describe '#product_type' do
@@ -45,11 +45,13 @@ RSpec.describe ReadyTech::Item do
     end
   end
 
-  it 'produces a correct receipt line' do
-    item.tax = item.price * BigDecimal('0.15') # ugh.
-    expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")
+  describe '#receipt_line' do
+    it 'produces a correct receipt line' do
+      item.tax = item.price * BigDecimal('0.15') # ugh.
+      expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")
+    end
   end
-
+  
   pending it 'handles quantities > 1'
   
 end

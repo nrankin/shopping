@@ -1,8 +1,12 @@
 # frozen_string_literal: false
 
 require 'bigdecimal'
+require 'money'
+require_relative 'calculate_tax'
 
-BigDecimal.mode(BigDecimal::ROUND_HALF_UP)
+Money.locale_backend = nil
+Money.default_currency = Money::Currency.new('AUD')
+Money.rounding_mode = BigDecimal::ROUND_HALF_UP
 
 module ReadyTech
   # A shopping basket containing items
@@ -14,8 +18,8 @@ module ReadyTech
     end
 
     def calculate_taxes
-      @total_tax = BigDecimal('0')
-      @total_sale = BigDecimal('0')
+      @total_tax = Money.new('0')
+      @total_sale = Money.new('0')
       items.each do |item|
         calc = CalculateTax.new(item.price, item.product_type, item.imported?)
         item.tax = calc.taxes
@@ -25,11 +29,11 @@ module ReadyTech
     end
 
     def total_taxes_string
-      total_tax.round(2).to_s(' F')
+      Money.new(total_tax, "AUD").format(symbol: false)
     end
 
     def total_sale_string
-      total_sale.round(2).to_s(' F')
+      Money.new(total_sale, "AUD").format(symbol: false)
     end
 
     def receipt
@@ -37,8 +41,8 @@ module ReadyTech
       items.each do |item|
         receipt << item.receipt_line << "\n"
       end
-      receipt << 'Sales Taxes:' << total_taxes_string << "\n"
-      receipt << 'Total:' << total_sale_string
+      receipt << 'Sales Taxes: ' << total_taxes_string << "\n"
+      receipt << 'Total: ' << total_sale_string
       receipt
     end
   end

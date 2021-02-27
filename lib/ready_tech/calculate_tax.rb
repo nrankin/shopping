@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 require 'bigdecimal'
+require 'money'
+
+Money.locale_backend = nil
+Money.default_currency = Money::Currency.new('AUD')
+Money.rounding_mode = BigDecimal::ROUND_HALF_UP
 
 module ReadyTech
   # Calculates and sums taxes appropriate for the item
@@ -34,7 +39,7 @@ module ReadyTech
     end
 
     def exempt?
-      /(book|food)/.match?(product_type)
+      /(book|food|medical)/.match?(product_type)
     end
   end
 end

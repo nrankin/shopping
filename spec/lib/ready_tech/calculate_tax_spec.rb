@@ -4,37 +4,48 @@ require 'ready_tech/calculate_tax'
 require 'bigdecimal'
 
 RSpec.describe ReadyTech::CalculateTax do
+  let!(:ten_dollars) { Money.new('1000')}
   it 'calculates tax correctly for regular items' do
-    calc = described_class.new(BigDecimal('10'), 'general', false)
+    calc = described_class.new(ten_dollars, 'general', false)
 
-    expected_tax = BigDecimal('10') * BigDecimal('.1')
+    expected_tax = ten_dollars * BigDecimal('.1')
 
     expect(calc.taxes).to eq(expected_tax)
   end
 
   it 'calculates tax correctly for exempt items' do
-    calc = described_class.new(BigDecimal('10'), 'food', false)
+    calc = described_class.new(ten_dollars, 'food', false)
 
-    expected_tax = BigDecimal('0')
+    expected_tax = Money.new('0')
 
     expect(calc.taxes).to eq(expected_tax)
   end
 
-  describe 'impoted items' do
-    it 'applies import and base tax rate to non-exempt items' do
-      calc = described_class.new(BigDecimal('10'), 'general', true)
+  it 'applies no tax to medical items that arent imported' do
+    price = Money.new('975')
+    calc = described_class.new(price, 'medical', false)
 
-      expected_tax = BigDecimal('10') * BigDecimal('.15')
+    expected_tax = BigDecimal('0.0')
+    expect(calc.taxes).to eq(expected_tax)
+  end
+
+  describe 'imported items' do
+    it 'applies import and base tax rate to non-exempt items' do
+      calc = described_class.new(ten_dollars, 'general', true)
+
+      expected_tax = ten_dollars * BigDecimal('.15')
 
       expect(calc.taxes).to eq(expected_tax)
     end
 
     it 'applies only imported tax rate to exempt items' do
-      calc = described_class.new(BigDecimal('10'), 'book', true)
+      calc = described_class.new(ten_dollars, 'book', true)
 
-      expected_tax = BigDecimal('10') * BigDecimal('.05')
+      expected_tax = ten_dollars * BigDecimal('.05')
 
       expect(calc.taxes).to eq(expected_tax)
     end
+
+    
   end
 end

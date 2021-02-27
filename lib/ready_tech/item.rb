@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'bigdecimal'
+# require 'money'
 
 module ReadyTech
   # An item represents one product, with it's quantity and price
@@ -20,11 +20,16 @@ module ReadyTech
     end
 
     def price
-      BigDecimal(row[:price])
+      price ||= parse_price
+    end
+
+    def parse_price
+      decimal = BigDecimal(row[:price])
+      Money.new(decimal * 100)
     end
 
     def price_with_tax
-      (price + tax).round(2).to_s(' F')
+      Money.new(price + tax).format(symbol: false)
     end
 
     def receipt_line
