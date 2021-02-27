@@ -14,6 +14,7 @@ module ReadyTech
         basket = Basket.new(items)
         basket.calculate_taxes
         reciept = basket.receipt
+        print file_path + "\n"
         print reciept
         print "\n\n"
       end

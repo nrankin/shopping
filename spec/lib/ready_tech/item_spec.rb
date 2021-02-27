@@ -37,6 +37,14 @@ RSpec.describe ReadyTech::Item do
     end
   end
 
+  describe '#imported?' do
+    it 'returns true for imported?' do
+      item = described_class.new({ quantity: 1, product: 'imported perfume', price: '22.34' })
+
+      expect(item.imported?).to eq(true)
+    end
+  end
+
   it 'produces a correct receipt line' do
     item.tax = item.price * BigDecimal('0.15') # ugh.
     expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")

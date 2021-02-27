@@ -17,7 +17,7 @@ module ReadyTech
       @total_tax = BigDecimal('0')
       @total_sale = BigDecimal('0')
       items.each do |item|
-        calc = CalculateTax.new(item.price, item.product_type)
+        calc = CalculateTax.new(item.price, item.product_type, item.imported?)
         item.tax = calc.taxes
         @total_tax += item.tax
         @total_sale += item.price + item.tax

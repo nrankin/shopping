@@ -5,22 +5,23 @@ require 'bigdecimal'
 module ReadyTech
   # Calculates and sums taxes appropriate for the item
   class CalculateTax
-    attr_reader :price, :product_type
+    attr_reader :price, :product_type, :is_imported
 
     BASE_TAX_RATE = BigDecimal('0.1')
     ADDITIONAL_IMPORT_TAX = BigDecimal('0.05')
     ZERO_TAX = BigDecimal('0')
 
-    def initialize(price, product_type)
+    def initialize(price, product_type, is_imported)
       @price = price
       @product_type = product_type
+      @is_imported = is_imported
     end
 
     def taxes
-      price * total_tax_rate(product_type)
+      price * total_tax_rate
     end
 
-    def total_tax_rate(_product_type)
+    def total_tax_rate
       base_tax_rate + imported_tax_rate
     end
 
@@ -29,15 +30,11 @@ module ReadyTech
     end
 
     def imported_tax_rate
-      imported? ? ADDITIONAL_IMPORT_TAX : ZERO_TAX
+      is_imported ? ADDITIONAL_IMPORT_TAX : ZERO_TAX
     end
 
     def exempt?
       /(book|food)/.match?(product_type)
-    end
-
-    def imported?
-      /imported/.match?(product_type)
     end
   end
 end

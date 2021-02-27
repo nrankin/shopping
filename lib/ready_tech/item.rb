@@ -50,5 +50,9 @@ module ReadyTech
     def medical?
       /pills/.match?(product)
     end
+
+    def imported?
+      /imported/.match?(product)
+    end
   end
 end
