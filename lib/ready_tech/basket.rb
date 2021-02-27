@@ -8,8 +8,6 @@ require 'money'
 # Money.rounding_mode = BigDecimal::ROUND_HALF_UP
 BigDecimal.mode(BigDecimal::ROUND_HALF_UP)
 module ReadyTech
-
-  
   # A shopping basket containing items
   class Basket
     attr_reader :items, :total_tax, :total_sale
@@ -42,8 +40,8 @@ module ReadyTech
       items.each do |item|
         receipt << item.receipt_line << "\n"
       end
-      receipt << "Sales Taxes:" << total_taxes_string << "\n"
-      receipt << "Total:" << total_sale_string
+      receipt << 'Sales Taxes:' << total_taxes_string << "\n"
+      receipt << 'Total:' << total_sale_string
       receipt
     end
   end

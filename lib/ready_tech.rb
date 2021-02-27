@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# require 'ready_tech/csv_importer'
+# require 'ready_tech/basket'
+# require 'ready_tech/item'
+
 module ReadyTech
   # Processes baskets: imports from csv, calculates tax, and prints reciepts
   class ReadyTech
@@ -11,6 +15,7 @@ module ReadyTech
         basket.calculate_taxes
         reciept = basket.receipt
         print reciept
+        print "\n\n"
       end
 
       'success'

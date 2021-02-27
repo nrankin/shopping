@@ -41,4 +41,7 @@ RSpec.describe ReadyTech::Item do
     item.tax = item.price * BigDecimal('0.15') # ugh.
     expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")
   end
+
+  pending it 'handles quantities > 1'
+  
 end
