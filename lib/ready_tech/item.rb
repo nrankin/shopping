@@ -19,6 +19,16 @@ module ReadyTech
       row[:product]
     end
 
+    def product_print
+      if imported?
+        prod = product.dup
+        imported = prod.slice!('imported')
+        to_print = imported << " " << prod
+        return to_print.squeeze
+      end
+      product
+    end
+
     def price
       price ||= parse_price
     end
@@ -33,7 +43,7 @@ module ReadyTech
     end
 
     def receipt_line
-      "#{quantity}, #{product}, #{price_with_tax}"
+      "#{quantity}, #{product_print}, #{price_with_tax}"
     end
 
     def product_type

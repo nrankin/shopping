@@ -50,6 +50,12 @@ RSpec.describe ReadyTech::Item do
       item.tax = item.price * BigDecimal('0.15') # ugh.
       expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")
     end
+
+    it "ensure 'imported' is at start of product description" do
+      item = described_class.new({ quantity: 1, product: 'box of imported chocolates', price: '22.34' })
+      item.tax = item.price * BigDecimal('0.05') # ugh.
+      expect(item.receipt_line).to eq("1, imported box of chocolates, #{item.price_with_tax}")
+    end
   end
   
   pending it 'handles quantities > 1'
