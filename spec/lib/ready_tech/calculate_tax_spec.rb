@@ -46,6 +46,22 @@ RSpec.describe ReadyTech::CalculateTax do
       expect(calc.taxes).to eq(expected_tax)
     end
 
-    
+    it 'rounds from 56 up to 60 cents' do
+      price = Money.new('1125')
+      calc = described_class.new(price, 'food', true)
+
+      expected_tax = Money.new('60')
+
+      expect(calc.taxes).to eq(expected_tax)
+    end
+
+    it 'rounds from 13 up to 15 cents' do
+      price = Money.new('4750')
+      calc = described_class.new(price, 'general', true)
+
+      expected_tax = Money.new('715')
+
+      expect(calc.taxes).to eq(expected_tax)
+    end
   end
 end
