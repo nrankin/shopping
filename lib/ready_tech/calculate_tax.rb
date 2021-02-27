@@ -24,20 +24,21 @@ module ReadyTech
 
     def taxes
       tax = price * total_tax_rate
-      Money.new(special_rounding_to_nearest_05(tax))
+      Money.new(special_rounding_to_nearest05(tax))
     end
 
-    def special_rounding_to_nearest_05(tax)
-      tax_as_cents = (tax*100).to_i
+    def special_rounding_to_nearest05(tax)
+      tax_as_cents = (tax * 100).to_i
       last_digit = tax_as_cents.digits[0]
       truncated_tax_as_cents = tax_as_cents.truncate(-1)
-      last_digit_replacement = up_to_nearest_divisible_by_5(last_digit)
+      last_digit_replacement = up_to_nearest_divisible_by5(last_digit)
       truncated_tax_as_cents + last_digit_replacement
     end
 
-    def up_to_nearest_divisible_by_5(int)
-      return int if int % 5 == 0
-      rounded = int.round(-1)     
+    def up_to_nearest_divisible_by5(int)
+      return int if (int % 5).zero?
+
+      rounded = int.round(-1)
       rounded > int ? rounded : rounded + 5
     end
 

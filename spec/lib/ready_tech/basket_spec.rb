@@ -18,21 +18,19 @@ RSpec.describe ReadyTech::Basket do
   describe '#receipt' do
     it 'creates a receipt' do
       basket.calculate_taxes
-      # puts "basket receipt: #{basket.receipt}"
+
       expect(basket.receipt).not_to be_nil
     end
 
     it 'has a correct total tax' do
-      basket.items.each {|item| p item.price.format }
       basket.calculate_taxes
-      puts "basket receipt: #{basket.receipt}"
 
       expect(basket.receipt).to include('Sales Taxes: 6.70')
     end
 
     it 'has a correct total' do
       basket.calculate_taxes
-      # puts "basket receipt: #{basket.receipt}"
+
       expect(basket.receipt).to include('Total: 74.68')
     end
   end

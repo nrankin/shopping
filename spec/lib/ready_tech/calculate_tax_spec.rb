@@ -4,7 +4,8 @@ require 'ready_tech/calculate_tax'
 require 'bigdecimal'
 
 RSpec.describe ReadyTech::CalculateTax do
-  let!(:ten_dollars) { Money.new('1000')}
+  let!(:ten_dollars) { Money.new('1000') }
+
   it 'calculates tax correctly for regular items' do
     calc = described_class.new(ten_dollars, 'general', false)
 

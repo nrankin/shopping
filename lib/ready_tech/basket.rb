@@ -29,11 +29,11 @@ module ReadyTech
     end
 
     def total_taxes_string
-      Money.new(total_tax, "AUD").format(symbol: false)
+      Money.new(total_tax, 'AUD').format(symbol: false)
     end
 
     def total_sale_string
-      Money.new(total_sale, "AUD").format(symbol: false)
+      Money.new(total_sale, 'AUD').format(symbol: false)
     end
 
     def receipt
@@ -41,6 +41,7 @@ module ReadyTech
       items.each do |item|
         receipt << item.receipt_line << "\n"
       end
+      receipt << "\n"
       receipt << 'Sales Taxes: ' << total_taxes_string << "\n"
       receipt << 'Total: ' << total_sale_string
       receipt

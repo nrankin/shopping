@@ -2,6 +2,6 @@
 
 # frozen_string_literal: true
 
-require_relative '../lib/init'
+require_relative '../lib/ready_tech'
 
 ReadyTech::ReadyTech.process_baskets

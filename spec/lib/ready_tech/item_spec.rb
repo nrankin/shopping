@@ -57,7 +57,6 @@ RSpec.describe ReadyTech::Item do
       expect(item.receipt_line).to eq("1, imported box of chocolates, #{item.price_with_tax}")
     end
   end
-  
+
   pending it 'handles quantities > 1'
-  
 end

@@ -16,14 +16,14 @@ module ReadyTech
     end
 
     def product
-      row[:product]
+      row[:product].strip
     end
 
     def product_print
       if imported?
         prod = product.dup
         imported = prod.slice!('imported')
-        to_print = imported << " " << prod
+        to_print = imported << ' ' << prod
         return to_print.squeeze
       end
       product
