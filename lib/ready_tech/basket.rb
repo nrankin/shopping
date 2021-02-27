@@ -1,12 +1,9 @@
 # frozen_string_literal: false
 
 require 'bigdecimal'
-require 'money'
 
-# Money.default_currency = Money::Currency.new('AUD')
-# Money.locale_backend = nil
-# Money.rounding_mode = BigDecimal::ROUND_HALF_UP
 BigDecimal.mode(BigDecimal::ROUND_HALF_UP)
+
 module ReadyTech
   # A shopping basket containing items
   class Basket

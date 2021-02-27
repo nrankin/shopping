@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-require 'ready_tech/item'
+require_relative 'item'
 
 module ReadyTech
   # Imports csv files representing shopping baskets of items
