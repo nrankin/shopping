@@ -24,9 +24,7 @@ module ReadyTech
     end
 
     def price_with_tax
-      raise ReadyTech::TaxesNotCalculatedError if tax.nil?
-
-      price + tax
+      (price + tax).round(2).to_s(' F')
     end
 
     def receipt_line

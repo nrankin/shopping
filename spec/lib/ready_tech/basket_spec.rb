@@ -19,5 +19,17 @@ RSpec.describe ReadyTech::Basket do
       basket.calculate_taxes
       expect(basket.receipt).not_to be_nil
     end
+
+    it 'has a correct total tax' do
+      basket.calculate_taxes
+      puts "total taxes: " + basket.total_taxes_string
+      expect(basket.receipt).to include("Sales Taxes: 3.48")
+    end
+
+    it 'has a correct total' do
+      basket.calculate_taxes
+      puts "total taxes: " + basket.total_taxes_string
+      expect(basket.receipt).to include("Total: 70.77")
+    end
   end
 end
