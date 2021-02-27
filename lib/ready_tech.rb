@@ -7,12 +7,10 @@ module ReadyTech
       Dir.glob(files_to_import).each do |file_path|
         # import one basket
         items = CsvImporter.import(file_path)
-        # calculate taxes
-        items.each do |item|
-          calc = CalculateTax.new(item.price, item.product_type)
-          item.tax = calc.taxes
-        end
-        # print reciepts
+        basket = Basket.new(items)
+        basket.calculate_taxes
+        reciept = basket.receipt
+        print reciept
       end
 
       'success'

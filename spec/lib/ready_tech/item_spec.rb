@@ -36,4 +36,9 @@ RSpec.describe ReadyTech::Item do
       expect(item.product_type).to eq('medical')
     end
   end
+
+  it 'produces a correct receipt line' do
+    item.tax = item.price * BigDecimal('0.15') # ugh.
+    expect(item.receipt_line).to eq("1, sweater, #{item.price_with_tax}")
+  end
 end

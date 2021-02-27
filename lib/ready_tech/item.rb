@@ -23,7 +23,15 @@ module ReadyTech
       BigDecimal(row[:price])
     end
 
-    attr_reader :tax
+    def price_with_tax
+      raise ReadyTech::TaxesNotCalculatedError if tax.nil?
+
+      price + tax
+    end
+
+    def receipt_line
+      "#{quantity}, #{product}, #{price_with_tax}"
+    end
 
     def product_type
       return 'book' if book?
