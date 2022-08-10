@@ -33,6 +33,10 @@ module Shopping
       price ||= parse_price
     end
 
+    def tax
+      CalculateTax.new(price, product_type, imported?).tax
+    end
+
     def parse_price
       decimal = BigDecimal(row[:price])
       Money.new(decimal * 100)

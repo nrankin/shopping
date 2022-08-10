@@ -21,8 +21,6 @@ module Shopping
       @total_tax = Money.new('0')
       @total_sale = Money.new('0')
       items.each do |item|
-        calc = CalculateTax.new(item.price, item.product_type, item.imported?)
-        item.tax = calc.taxes
         @total_tax += item.tax
         @total_sale += item.price + item.tax
       end

@@ -11,7 +11,7 @@ RSpec.describe Shopping::CalculateTax do
 
     expected_tax = ten_dollars * BigDecimal('.1')
 
-    expect(calc.taxes).to eq(expected_tax)
+    expect(calc.tax).to eq(expected_tax)
   end
 
   it 'calculates tax correctly for exempt items' do
@@ -19,7 +19,7 @@ RSpec.describe Shopping::CalculateTax do
 
     expected_tax = Money.new('0')
 
-    expect(calc.taxes).to eq(expected_tax)
+    expect(calc.tax).to eq(expected_tax)
   end
 
   it 'applies no tax to medical items that arent imported' do
@@ -27,7 +27,7 @@ RSpec.describe Shopping::CalculateTax do
     calc = described_class.new(price, 'medical', false)
 
     expected_tax = BigDecimal('0.0')
-    expect(calc.taxes).to eq(expected_tax)
+    expect(calc.tax).to eq(expected_tax)
   end
 
   describe 'imported items' do
@@ -36,7 +36,7 @@ RSpec.describe Shopping::CalculateTax do
 
       expected_tax = ten_dollars * BigDecimal('.15')
 
-      expect(calc.taxes).to eq(expected_tax)
+      expect(calc.tax).to eq(expected_tax)
     end
 
     it 'applies only imported tax rate to exempt items' do
@@ -44,7 +44,7 @@ RSpec.describe Shopping::CalculateTax do
 
       expected_tax = ten_dollars * BigDecimal('.05')
 
-      expect(calc.taxes).to eq(expected_tax)
+      expect(calc.tax).to eq(expected_tax)
     end
 
     it 'rounds from 56 up to 60 cents' do
@@ -53,7 +53,7 @@ RSpec.describe Shopping::CalculateTax do
 
       expected_tax = Money.new('60')
 
-      expect(calc.taxes).to eq(expected_tax)
+      expect(calc.tax).to eq(expected_tax)
     end
 
     it 'rounds from 13 up to 15 cents' do
@@ -62,7 +62,7 @@ RSpec.describe Shopping::CalculateTax do
 
       expected_tax = Money.new('715')
 
-      expect(calc.taxes).to eq(expected_tax)
+      expect(calc.tax).to eq(expected_tax)
     end
   end
 end

@@ -22,7 +22,7 @@ module Shopping
       @is_imported = is_imported
     end
 
-    def taxes
+    def tax
       tax = price * total_tax_rate
       Money.new(special_rounding_to_nearest05(tax))
     end
