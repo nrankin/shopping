@@ -1,2 +1,2 @@
 # shopping
-Just a code example
+Just a code test
